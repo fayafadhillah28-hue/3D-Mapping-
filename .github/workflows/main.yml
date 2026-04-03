@@ -1,22 +1,26 @@
-name: Auto Deploy Subdomain
+name: Deploy via FTP
 
 on:
   push:
     branches:
-      - main  # Ganti 'master' jika branch utama kamu namanya master
+      - main
 
 jobs:
-  web-deploy:
-    name: Deploy
+  deploy:
     runs-on: ubuntu-latest
     steps:
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: 🚀 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.4
-      with:
-        server: ${{ secrets.FTP_SERVER }}
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: ./  # Karena sudah dikunci di folder public_html, cukup pakai ./
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.4
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: /public_html/
+          protocol: ftps          # Coba ftps, atau ganti ke ftp jika tidak support
+          port: 21
+          security: strict        # Ganti ke "loose" jika SSL certificate error
+          timeout: 60000          # 60 detik timeout
+          log-level: verbose      # Untuk debug lebih detail
