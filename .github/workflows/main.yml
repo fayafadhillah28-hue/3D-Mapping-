@@ -19,8 +19,11 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           server-dir: /public_html/
-          protocol: ftps          # Coba ftps, atau ganti ke ftp jika tidak support
+          protocol: ftp
           port: 21
-          security: strict        # Ganti ke "loose" jika SSL certificate error
-          timeout: 60000          # 60 detik timeout
-          log-level: verbose      # Untuk debug lebih detail
+          timeout: 120000          # 2 menit, untuk file video besar
+          log-level: verbose
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
