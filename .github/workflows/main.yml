@@ -18,10 +18,10 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          server-dir: /public_html/
+          server-dir: ./
           protocol: ftp
           port: 21
-          timeout: 120000          # 2 menit, untuk file video besar
+          timeout: 120000
           log-level: verbose
           exclude: |
             **/.git*
